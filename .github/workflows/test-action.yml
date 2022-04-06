@@ -1,4 +1,4 @@
-name: GitHub Actions Demo
+name: Unit tests
 on: [push]
 jobs:
   Explore-GitHub-Actions:
@@ -14,4 +14,4 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+      - run: npm run test
