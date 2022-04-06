@@ -1,24 +1,11 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "scripts": {
     "clean": "rimraf dist",
     "build": "npm run clean && webpack --config webpack.config.ts",
     "start:dev": "webpack --config webpack.config.ts --watch"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/velesstan/backend.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/velesstan/backend/issues"
-  },
-  "homepage": "https://github.com/velesstan/backend#readme",
   "dependencies": {
     "@nestjs/common": "^8.4.3",
     "@nestjs/core": "^8.4.3",
