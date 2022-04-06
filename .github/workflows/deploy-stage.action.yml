@@ -1,0 +1,63 @@
+name: Deploy to STAGE environment
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [closed]
+
+env:
+  DOCKER_USER: ${{secrets.DOCKER_USER}}
+  DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+
+jobs:
+  publish-docker-image:
+    name: Publish docker image
+    environment: Stage
+    runs-on: ubuntu-latest
+    if: ${{ github.event.pull_request.merged }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Docker login
+        run: |
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+
+      - name: Build the Docker image
+        run: docker build . --tag velesstan/backend:stage
+
+      - name: Push the Docker image
+        run: docker push velesstan/backend:stage
+
+  update-server-images:
+    name: Update server containers
+    environment: Stage
+    runs-on: ubuntu-latest
+    needs: publish-docker-image
+    if: ${{ github.event.pull_request.merged }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Clone source code
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PASSWORD }}
+          source: ".,!node_modules"
+          target: "~/apps/backend"
+          rm: true
+
+      - name: SSH login and restart script
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PASSWORD }}
+          script: |
+            cd ~/apps/backend
+            docker-compose pull
+            docker-compose up --build -d --remove-orphans --force-recreate
+            docker image prune -af

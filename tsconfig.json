@@ -1,3 +1,16 @@
 {
-  "compilerOptions": {}
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "strictNullChecks": true,
+    "esModuleInterop": true,
+    "declaration": true,
+    "sourceMap": true,
+    "module": "CommonJS",
+    "target": "ES2017",
+    "outDir": "dist"
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
 }
