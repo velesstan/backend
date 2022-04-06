@@ -1,5 +1,7 @@
 name: Deploy to stage enivornment
-on: [push]
+on:
+  pull_request:
+    types: [opened, closed]
 jobs:
   Explore-GitHub-Actions:
     environment: Stage
