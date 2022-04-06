@@ -4,7 +4,8 @@
   "scripts": {
     "clean": "rimraf dist",
     "build": "npm run clean && webpack --config webpack.config.ts",
-    "start:dev": "webpack --config webpack.config.ts --watch"
+    "start:dev": "webpack --config webpack.config.ts --watch",
+    "test": "echo This is a test"
   },
   "dependencies": {
     "@nestjs/common": "^8.4.3",
