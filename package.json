@@ -16,6 +16,7 @@
   },
   "devDependencies": {
     "@types/webpack-node-externals": "^2.5.3",
+    "cross-env": "^7.0.3",
     "nodemon-webpack-plugin": "^4.7.1",
     "rimraf": "^3.0.2",
     "ts-loader": "^9.2.8",
