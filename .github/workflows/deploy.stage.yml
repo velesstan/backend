@@ -1,0 +1,36 @@
+name: Deploy to stage enivornment
+on: [push]
+jobs:
+  Explore-GitHub-Actions:
+    environment: Stage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Deploy
+        if: github.event.pull_request.merged
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PASSWORD }}
+          source: ".,!node_modules"
+          target: "~/apps/backend"
+          rm: true
+
+      - name: Build
+        if: github.event.pull_request.merged
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PASSWORD }}
+          script: |
+            cd ~/apps/backend
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            nvm install 14
+            nvm use 14
+            npm install
+            npm run build
