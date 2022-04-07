@@ -48,7 +48,6 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           source: ".,!node_modules"
           target: "~/apps/backend"
-          rm: true
 
       - name: SSH login and restart script
         uses: appleboy/ssh-action@master
