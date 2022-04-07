@@ -11,6 +11,5 @@ WORKDIR /backend
 COPY package*.json ./
 RUN npm i --only=production
 COPY --from=development /backend/dist ./dist
-COPY --from=development /backend/app.env .
 EXPOSE 3000
 CMD ["npm", "run", "start:prod"]
