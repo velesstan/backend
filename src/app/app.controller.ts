@@ -8,6 +8,7 @@ export class AppController {
   async version() {
     return {
       environment: process.env.STAGE,
+      NODE_ENV: process.env.NODE_ENV,
       version: packageJson.version,
     };
   }
