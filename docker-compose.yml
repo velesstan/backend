@@ -8,8 +8,11 @@ services:
       - app.env
     ports:
       - 3000:3000
+    depends_on:
+      - database
+
   database:
-    image: mongo:latest
+    image: mongo:4.4.13
     volumes:
       - ./mongod.conf:/etc/mongod.conf
       - ./mongodb:/data/db
