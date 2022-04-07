@@ -1,4 +1,14 @@
-import { Controller } from "@nestjs/common";
+import { Controller, Get } from "@nestjs/common";
+
+const packageJson = require("../../package.json");
 
 @Controller()
-export class AppController {}
+export class AppController {
+  @Get("/status")
+  async version() {
+    return {
+      environment: process.env.STAGE,
+      version: packageJson.version,
+    };
+  }
+}
