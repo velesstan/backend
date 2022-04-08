@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Get, Post, Query } from "@nestjs/common";
 
-import { CreateUserDto } from "./dto";
+import { CreateUserDto, FindUserDto } from "./dto";
 import { User } from "./schemas";
 import { UserService } from "./user.service";
 
@@ -9,12 +9,12 @@ export class UsersController {
   constructor(private readonly userService: UserService) {}
 
   @Get("/")
-  async getUser(): Promise<User[]> {
-    return this.userService.getUsers();
+  async find(@Query() query: FindUserDto): Promise<User[]> {
+    return this.userService.find(query);
   }
 
   @Post("/")
   async create(@Body() createUserDto: CreateUserDto): Promise<User> {
-    return this.userService.createUser(createUserDto);
+    return this.userService.create(createUserDto);
   }
 }

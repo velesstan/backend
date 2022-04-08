@@ -1,12 +1,14 @@
 import { Schema, SchemaFactory, Prop } from "@nestjs/mongoose";
 import { Document } from "mongoose";
 
+import { User as IUser } from "@velesstan/common";
+
 export type UserDocument = User & Document;
 
 @Schema({
   timestamps: true,
 })
-export class User {
+export class User implements IUser {
   @Prop()
   username: string;
 

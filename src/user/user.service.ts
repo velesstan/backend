@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 
-import { CreateUserDto } from "./dto";
+import { CreateUserDto, FindUserDto } from "./dto";
 import { User } from "./schemas";
 import { UserRepository } from "./user.repository";
 
@@ -24,11 +24,13 @@ export class UserService {
     }
   }
 
-  async getUsers(): Promise<User[]> {
-    return this.userRepository.find({});
+  async find(query?: FindUserDto): Promise<User[]> {
+    return this.userRepository.find({
+      ...query,
+    });
   }
 
-  async createUser(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto) {
     return this.userRepository.create(createUserDto);
   }
 }
