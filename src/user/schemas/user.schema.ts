@@ -9,7 +9,9 @@ export type UserDocument = User & Document;
   timestamps: true,
 })
 export class User implements IUser {
-  @Prop()
+  @Prop({
+    unique: true,
+  })
   username: string;
 
   @Prop()
