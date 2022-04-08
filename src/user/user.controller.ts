@@ -9,7 +9,7 @@ export class UsersController {
   constructor(private readonly userService: UserService) {}
 
   @Get("/")
-  async find(@Query() query: FindUserDto): Promise<User[]> {
+  async find(@Query() query?: FindUserDto): Promise<User[]> {
     return this.userService.find(query);
   }
 
