@@ -1,0 +1,9 @@
+{
+  "verbose": true,
+  "ignore": [".git", "node_modules", "dist", "*.spec.ts"],
+  "watch": ["./src"],
+  "execMap": {
+    "ts": "ts-node"
+  },
+  "ext": "ts"
+}
