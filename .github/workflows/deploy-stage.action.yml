@@ -14,11 +14,30 @@ env:
   DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
 
 jobs:
+  unit-tests:
+    name: Unit tests
+    environment: Stage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Run NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 17.x
+      
+      - name: Install packages and run unit tests
+        run: |
+          npm install
+          npm run test
+      
+
   publish-docker-image:
     name: Publish docker image
     environment: Stage
     runs-on: ubuntu-latest
-    # if: ${{ github.event.pull_request.merged }}
+    if: ${{ github.event.pull_request.merged }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -38,7 +57,7 @@ jobs:
     environment: Stage
     runs-on: ubuntu-latest
     needs: publish-docker-image
-    # if: ${{ github.event.pull_request.merged }}
+    if: ${{ github.event.pull_request.merged }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
