@@ -16,6 +16,7 @@ import { AppController } from "./app.controller";
       },
       load: [configuration],
       envFilePath: ["app.env"],
+      isGlobal: true,
     }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
