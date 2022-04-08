@@ -34,4 +34,8 @@ export abstract class BaseRepository<T extends Document> {
   async findOneAndUpdate(entityFilterQuery: FilterQuery<T>, updateEntityDate: UpdateQuery<unknown>): Promise<T | null> {
     return this.entityModel.findOneAndUpdate(entityFilterQuery, updateEntityDate, { new: true }).exec();
   }
+
+  async delete(id: string): Promise<void> {
+    await this.entityModel.findByIdAndDelete(id).exec();
+  }
 }
