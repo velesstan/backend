@@ -4,10 +4,10 @@ on:
   pull_request:
     branches:
       - main
-    types: [closed]
-  push:
-    branches:
-      - main
+    types: [open, closed]
+  # push:
+  #   branches:
+  #     - main
 
 env:
   DOCKER_USER: ${{secrets.DOCKER_USER}}
