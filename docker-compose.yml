@@ -13,6 +13,7 @@ services:
 
   database:
     image: mongo:4.4.13
+    restart: always
     volumes:
       - ./mongod.conf:/etc/mongod.conf
       - ./mongodb:/data/db
