@@ -5,34 +5,12 @@ on:
     branches:
       - main
     types: [open, closed]
-  # push:
-  #   branches:
-  #     - main
 
 env:
   DOCKER_USER: ${{secrets.DOCKER_USER}}
   DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
 
 jobs:
-  unit-tests:
-    name: Unit tests
-    environment: Stage
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      
-      - name: Run NodeJS
-        uses: actions/setup-node@v3
-        with:
-          node-version: 17.x
-      
-      - name: Install packages and run unit tests
-        run: |
-          npm install
-          npm run test
-      
-
   publish-docker-image:
     name: Publish docker image
     environment: Stage

@@ -1,26 +1,31 @@
 import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
+import { CommandBus } from "@nestjs/cqrs";
 import bcrypt from "bcrypt";
 
+import { CreateUserCommand } from "./commands/impl";
+import { UserRepository, User } from "./model";
 import { CreateUserDto, FindUserDto } from "./dto";
-import { User } from "./schemas";
-import { UserRepository } from "./user.repository";
 
 @Injectable()
 export class UserService {
-  constructor(private readonly userRepository: UserRepository, private readonly configService: ConfigService) {
+  constructor(
+    private readonly commandBus: CommandBus,
+    private readonly userRepository: UserRepository,
+    private readonly configService: ConfigService
+  ) {
     setImmediate(() => {
       this.boot();
     });
   }
 
   async boot(): Promise<void> {
-    const user = await this.userRepository.findOne({
-      username: this.configService.get<string>("MONGO_INITDB_ROOT_USERNAME"),
+    const user = await this.find({
+      username: this.configService.get<string>("MONGO_INITDB_ROOT_USERNAME") as string,
     });
-    if (!user) {
-      await this.userRepository.create({
-        username: this.configService.get<string>("MONGO_INITDB_ROOT_USERNAME"),
+    if (!user.length) {
+      await this.create({
+        username: this.configService.get<string>("MONGO_INITDB_ROOT_USERNAME") as string,
         password: await bcrypt.hash(this.configService.get<string>("MONGO_INITDB_ROOT_PASSWORD") as string, 10),
       });
     }
@@ -33,11 +38,7 @@ export class UserService {
   }
 
   async create(createUserDto: CreateUserDto) {
-    const { password, ...rest } = createUserDto;
-    return this.userRepository.create({
-      ...rest,
-      password: await bcrypt.hash(password, 10),
-    });
+    return this.commandBus.execute(new CreateUserCommand(createUserDto));
   }
 
   async delete(id: string): Promise<void> {
