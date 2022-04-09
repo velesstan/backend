@@ -1,8 +1,7 @@
 import { CommandHandler, ICommandHandler, EventBus } from "@nestjs/cqrs";
 import bcrypt from "bcrypt";
 
-import { UserRepository } from "../../user.repository";
-import { User } from "../../schemas";
+import { UserRepository, User } from "../../model";
 
 import { CreateUserCommand } from "../impl";
 import { UserCreatedEvent } from "../../events/impl";

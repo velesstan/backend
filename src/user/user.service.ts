@@ -4,9 +4,8 @@ import { CommandBus } from "@nestjs/cqrs";
 import bcrypt from "bcrypt";
 
 import { CreateUserCommand } from "./commands/impl";
-import { UserRepository } from "./user.repository";
+import { UserRepository, User } from "./model";
 import { CreateUserDto, FindUserDto } from "./dto";
-import { User } from "./schemas";
 
 @Injectable()
 export class UserService {
