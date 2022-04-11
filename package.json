@@ -6,7 +6,7 @@
     "build": "npm run clean && tsc",
     "start:dev": "nodemon src/index.ts --config nodemon.json",
     "start:prod": "cross-env NODE_ENV=production node dist/",
-    "test": "jest",
+    "test": "jest --verbose",
     "lint": "eslint src/** --fix"
   },
   "dependencies": {
