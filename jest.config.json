@@ -6,7 +6,14 @@
     "^.+\\.(t|j)s$": "ts-jest"
   },
   "collectCoverageFrom": ["**/*.(t|j)s"],
-  "coveragePathIgnorePatterns": [],
+  "coveragePathIgnorePatterns": [
+    "src/config",
+    "tests/helpers",
+    "test/stubs",
+    ".module.ts",
+    "base.repository.ts",
+    "index.ts"
+  ],
   "coverageDirectory": "../coverage",
   "testEnvironment": "node"
 }

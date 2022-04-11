@@ -3,7 +3,7 @@ import { ConfigService } from "@nestjs/config";
 import { CommandBus } from "@nestjs/cqrs";
 import bcrypt from "bcrypt";
 
-import { CreateUserCommand } from "./commands/impl";
+import { CreateUserCommand } from "./commands";
 import { UserRepository, User } from "./model";
 import { CreateUserDto, FindUserDto } from "./dto";
 

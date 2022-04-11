@@ -3,11 +3,10 @@ import { CqrsModule } from "@nestjs/cqrs";
 import { MongooseModule } from "@nestjs/mongoose";
 
 import { User, UserSchema, UserRepository } from "./model";
+import { CommandHandlers } from "./commands";
+import { EventHandlers } from "./events";
 import { UsersController } from "./user.controller";
 import { UserService } from "./user.service";
-
-import { CommandHandlers } from "./commands/handlers";
-import { EventHandlers } from "./events/handlers";
 
 @Module({
   imports: [MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]), CqrsModule],
