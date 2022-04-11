@@ -3,8 +3,8 @@ import bcrypt from "bcrypt";
 
 import { UserRepository, User } from "../../model";
 
-import { CreateUserCommand } from "../impl";
-import { UserCreatedEvent } from "../../events/impl";
+import { CreateUserCommand } from "./create-user.command";
+import { UserCreatedEvent } from "../../events";
 
 @CommandHandler(CreateUserCommand)
 export class CreateUserHandler implements ICommandHandler<CreateUserCommand, User> {
